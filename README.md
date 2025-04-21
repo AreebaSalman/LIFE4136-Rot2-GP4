@@ -1,6 +1,6 @@
 # Measuring mRNA levels by RNA-Seq (Trypanosoma brucei & Homo Sapiens)
 ## Contents
-[Overview](#overview)
+[Overview](#overview) - 
 [Requirements & Installations](#Requirements&Installations)
 ## Getting Started
 [Install Conda](#Installconda)
