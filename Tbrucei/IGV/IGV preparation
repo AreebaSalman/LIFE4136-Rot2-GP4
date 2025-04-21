@@ -1,1 +1,29 @@
+#!/bin/bash
 
+#SBATCH --partition=defq
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=32
+#SBATCH --mem=100g
+#SBATCH --time=23:00:00
+#SBATCH --job-name=animal_sambam
+#SBATCH --output=/share/BioinfMSc/Bill_resources/Tbrucei/fastq/Group4/bowtie/animals/logs/%x-%j.out
+#SBATCH --error=/share/BioinfMSc/Bill_resources/Tbrucei/fastq/Group4/bowtie/animals/logs/%x-%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=mbyle1@nottingham.ac.uk
+
+# Activate conda environment
+source $HOME/.bash_profile
+conda activate samtools
+
+# Animal path
+animals=/share/BioinfMSc/Bill_resources/Tbrucei/fastq/Group4/bowtie/animals
+
+# Convert animal sam files to bam files
+for n in {1..5}; do
+    samtools view -Sb $animals/animal${n}/animal${n}_trim.sam | samtools sort -@ 8 -o $animals/animal${n}/animal${n}.bam
+    samtools index $animals/animal${n}/animal${n}.bam
+done
+
+# Deactivate conda environment
+conda deactivate
