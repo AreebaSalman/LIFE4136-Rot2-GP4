@@ -1,0 +1,128 @@
+# Install DESeq2
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install("DESeq2")
+
+# libraries to use in for DESeq2 analysis
+library("DESeq2")
+library(BiocManager)
+library(ggrepel)
+library("vsn") # transform data according to variance
+library("RColorBrewer") # For colouring heatmap
+library("pheatmap") # for heatmap
+
+rm(list = ls())  # remove the environment
+
+#path to count files
+directory <- "C:/Users/Areeba/Documents/LIFE4136_group_project/Project2/htseq2"
+
+# make a sample table for DESeq2 analysis using animals and in-vitro samples
+sampleTable <- data.frame(
+  sampleName = c("animal1", "animal2", "animal3", "animal4", "animal5",
+                 "invitro1", "invitro2", "invitro3", "invitro4", "invitro5"),
+  fileName = c("counts_nonstrand_animal1.txt", "counts_nonstrand_animal2.txt", "counts_nonstrand_animal3.txt",
+               "counts_nonstrand_animal4.txt", "counts_nonstrand_animal5.txt",
+               "counts_vitro1.txt", "counts_vitro2.txt", "counts_vitro3.txt",
+               "counts_vitro4.txt", "counts_vitro5.txt"),
+  condition = c(rep("animal", 5), rep("invitro", 5))  # Condition: animal vs vitro
+)
+
+# Convert condition to factor
+sampleTable$condition <- factor(sampleTable$condition, levels = c("animal", "invitro"))
+
+# Create DESeq2 dataset
+ddsHTSeq <- DESeqDataSetFromHTSeqCount(
+  sampleTable = sampleTable,
+  directory = directory,
+  design = ~ condition
+)
+
+# Run DESeq2 analysis
+ddsHTSeq <- DESeq(ddsHTSeq)
+res <- results(ddsHTSeq)
+res
+
+resultsNames(ddsHTSeq)
+
+# How many adjusted p-values were less than 0.01 FOR ALL SAMPLES?
+sum(res$padj < 0.01, na.rm=TRUE) # 3154
+
+# alpha = FDR cut off. alpha default = 0.1 
+res05 <- results(ddsHTSeq, alpha=0.01)
+summary(res05)
+sum(res05$padj < 0.01, na.rm=TRUE) # 3147 genes less than 0.01 significance
+
+# Shrunken data
+resLFC <- lfcShrink(ddsHTSeq, coef="condition_invitro_vs_animal", type="apeglm")
+resLFC
+
+# MA plot 
+plotMA(res, alpha = 0.01, ylim=c(-30,30))
+plotMA(resLFC, alpha = 0.01, ylim=c(-30,30))
+
+# Heatmap of the sample-to-sample distances
+vsd <- vst(ddsHTSeq, blind=FALSE)
+sampleDists <- dist(t(assay(vsd)))
+head(assay(vsd), 3) # "extract the matrix of normalized values" - from deseq tutorial
+sampleDistMatrix <- as.matrix(sampleDists)
+rownames(sampleDistMatrix) <- paste(colnames(assay(vsd)))
+colnames(sampleDistMatrix) <- paste(colnames(assay(vsd)))
+colors <- colorRampPalette(rev(brewer.pal(9, "Blues")))(255)
+pheatmap(sampleDistMatrix,
+         clustering_distance_rows=sampleDists,
+         clustering_distance_cols=sampleDists,
+         col=colors)
+
+
+# PCA with customisation
+pcaData <- plotPCA(vsd, intgroup=c("condition"), returnData=TRUE)
+percentVar <- round(100 * attr(pcaData, "percentVar"))
+ggplot(pcaData, aes(PC1, PC2, color=condition)) +
+  geom_point(size=3) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) +
+  geom_text_repel(aes(label=colnames(assay(vsd))), size=3, force=30, color="black", max.overlaps = 20) +
+  theme_bw()
+
+# Volcano plot made manually
+# Categorise differentially expressed genes
+# Subset data
+volcano <- data.frame(res@rownames, res$padj, res$log2FoldChange)
+# Rename columns
+colnames(volcano) <- c("Gene", "padj", "log2FoldChange")
+volcano <- na.omit(volcano) # remove rows with NAs
+volcano$diffexpressed <- "NO"
+volcano
+
+# if log2Foldchange > 0.6 and pvalue < 0.05, set as "UP" 
+volcano$diffexpressed[volcano$log2FoldChange > 0.6 & volcano$padj < 0.05] <- "UP"
+# if log2Foldchange < -0.6 and pvalue < 0.05, set as "DOWN"
+volcano$diffexpressed[volcano$log2FoldChange < -0.6 & volcano$padj < 0.05] <- "DOWN"
+
+# Create a new column "delabel" to de, that will contain the name of the top 20 differentially expressed genes (NA in case they are not)
+volcano$label <- ifelse(volcano$Gene %in% head(volcano[order(volcano$padj), "Gene"], 20), volcano$Gene, NA)
+
+# Plot volcano plot
+ggplot(data=volcano, aes(x=log2FoldChange, y=-log10(padj), col=diffexpressed, label=label)) +
+  geom_point() + 
+  theme_minimal() +
+  scale_color_manual(values=c("blue", "black", "red"),
+                     labels=c("Downregulated", "Not significant", "Upregulated")) +
+  geom_vline(xintercept=c(-0.6, 0.6), col="red") +
+  geom_hline(yintercept=-log10(0.05), col="red") +
+  ylim(-5, 200) +
+  xlim(-25, 25) +
+  geom_text_repel(max.overlaps = Inf, size=3) # To show all labels 
+
+# Get table of the top 20 significant genes
+siggenes <- na.omit(volcano)
+down_siggenes <- subset(siggenes, diffexpressed=="DOWN")
+up_siggenes <- subset(siggenes, diffexpressed=="UP")
+print(siggenes$label)
+
+# Order volcano by significance (smallest padj values at the top) to get ordered gene names for GORILLA
+ordered_genes <- volcano[,c("Gene", "padj")]
+ordered_genes <- ordered_genes[order(ordered_genes$padj),]
+order_genenames <- ordered_genes[,"Gene"]
+write.table(order_genenames, "C:/Users/Areeba/Documents/LIFE4136_group_project/Project2/hsapiens/ordered_genenames.txt", row.names=FALSE)
