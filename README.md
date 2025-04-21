@@ -2,4 +2,4 @@
 ## Contents
 [Overview](#overview)
 ## Getting Started
-[Install Conda](#Install Conda)
+[Install Conda](#Installconda)
