@@ -83,5 +83,24 @@ To install DESeq2 package in R,
     install.packages("BiocManager")
 
 BiocManager::install("DESeq2") </pre>
-
-
+Use [DESeq2_Tbrucei](#DESeq2_Tbrucei) to prepare the script. All the analysis of DESeq2 was done in R. A list of top 20 significant genes was prepared to be used in GORILLA to identify the biological processes and functional pathways these genes were involved in. 
+## Homo Sapiens
+For studying differentially expressed genes in Hsapiens, two samples were provided to us, Adenocarcinoma and Hepatocellular carcinoma. In this case, quality check, and trimming were no longer needed because the data provided to us was already cleaned.
+### Indexing
+Reference genome assembly and its annotation was downloaded from www.ensembl.org. To align the sequence to the reference genome, the reference genome had to be indexed. A package called STAR was used to index the reference genome. 
+<pre> conda activate rotation2
+conda install bioconda::star </pre>
+Create the STAR index using [STAR_refindex.sh](#STAR_refindex.sh)
+<pre> sbatch STAR_refindex.sh </pre>
+### Alignment
+STAR is a splicing aware aligner that was used to align the reads to the reference genome as the sequence data we had was spliced. STAR performed alignment and counted the reads.
+<pre> conda activate rotation2</pre>
+STAR was already installed in the environment to index the reference genome. You do not need to download the package again. Just activate the rotation2 environment and use reference STAR script [STAR_align.sh](#STAR_align.sh) to prepare your script.
+<pre> satch STAR_align.sh </pre>
+### DESeq2
+To identify the differentially expressed genes in Hsapiens, DESeq2 analysis was performed in R. As DESeq2 was already downloaded in R for Tbrucei analysis, just load the libraries needed to be used.
+Use this script [DESeq2_Hsapiens](#DESeq2_Hsapiens) as a reference to prepare your analysis. A list of top 20 significant genes were prepared for Hsapiens as well to be used in GORILLA to identify the biological processes and functional pathways of these genes.
+## Acknowledgements
+### Contributors
+All the scripts were jointly made by [Leah31115](#Leah31115), Thomas and me.
+## References
