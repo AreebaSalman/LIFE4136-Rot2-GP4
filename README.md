@@ -34,7 +34,7 @@ Several different packages were used to complete this project. A Requirements.tx
 ## Getting Started
 ### Install Conda
 To install Conda on Ubuntu, download the Miniconda installer and run the following commands:
-<pre> '''wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh''' <pre>
+<pre> wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh <pre>
 
 
