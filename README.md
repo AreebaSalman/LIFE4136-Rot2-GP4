@@ -52,12 +52,36 @@ Intsall the fastqc package in the python=3.10 environment created earlier.
   <pre> sbatch quast_Animals.sh/slurm_qcv2 </pre>
   Several types of files will be generated. Copy those files to your computer and view them.
 ### Trimming
-Trim-galore was the package used to trim the samples after viewing the quality of these.
+Trim-galore was the package used to trim the samples after viewing the quality of these. Trimming was needed to ensure the data excludes those files which were not needed to make our data clean
 <pre> conda activate rotation2
   conda install bioconda::trim-galore </pre>
   Use [TG_animal.sh/vitrotrim_galore.sh](#TG_animal.sh/vitrotrim_galore.sh) to prepare the scripts according to the data provided.
   <pre> sbatch TG_animal.sh/vitrotrim_galore.sh </pre>
-  
+### Indexing
+To use bowtie2 to align the reads to the reference genome, it is important to index the reference using bowtie build. 
+<pre> conda activate rotation2
+conda install bioconda::bowtie2 </pre>
+[indexing_reference.sh](#indexing_reference.sh) is the example script to build an index using bowtie build. 
+<pre> sbatch indexing_reference.sh </pre>
+### Alignment
+Sequence alignment is done for the purpose of identifying evolutionary relationships, regions of similarity, functional and structural differences. To align the sequences to the reference genome, bowtie2 was used.
+<pre> conda activate rotation2 </pre>
+Bowtie2 package was already insatlled in the environment to use for indexing the reference. There is no need to install it again. Just activate the package and proceed with the script.
 
+Provided are two example scripts used for Animals and In-vitro. Feel free to use any one of these [align_animal_trim.sh/bowtie_vitro.sh](#align_animal_trim.sh/bowtie_vitro.sh)
+<pre> sbatch align_animal_trim.sh/bowtie_vitro.sh </pre>
+### htseq
+htseq was used to count the reads mapped to each gene in the genome for the purpose of identifying differentially expressed genes.
+<pre> conda activate rotation2
+conda install bioconda::htseq </pre>
+[htseq_animals.sh/htseq_vitro.sh](#htseq_animals.sh/htseq_vitro.sh) example scripts are provided to view and use them according to your convenience.
+<pre> sbatch htseq_animals.sh/htseq_vitro.sh </pre>
+### DESeq2
+To identify differentially expressed genes in the genome, DESeq2 package was used in R. It is a valuable tool to study gene expression patterns and regulation.
+To install DESeq2 package in R,
+<pre>if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("DESeq2") </pre>
 
 
