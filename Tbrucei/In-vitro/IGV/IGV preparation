@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#SBATCH --partition=defq
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=32
+#SBATCH --mem=100g
+#SBATCH --time=23:00:00
+#SBATCH --job-name=chrom1_sambam
+#SBATCH --output=/share/BioinfMSc/Bill_resources/Tbrucei/fastq/Group4/bowtie1_vitro/chrom1/%x-%j.out
+#SBATCH --error=/share/BioinfMSc/Bill_resources/Tbrucei/fastq/Group4/bowtie1_vitro/chrom1/%x-%j.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=mbyle1@nottingham.ac.uk
+
+# Activate conda environment
+source $HOME/.bash_profile
+conda activate samtools
+
+# vitro path
+vitro=/share/BioinfMSc/Bill_resources/Tbrucei/fastq/Group4/bowtie1_vitro/chrom1
+
+# Convert vitro sam files to bam files
+for n in {1..5}; do
+    samtools view -Sb $vitro/vitro${n}_Tb927_01_100000.sam | samtools sort -@ 8 -o $vitro/vitro${n}_Tb927_01_100000.bam
+    samtools index $vitro/vitro${n}_Tb927_01_100000.bam
+done
+
+# Deactivate conda environment
+conda deactivate
