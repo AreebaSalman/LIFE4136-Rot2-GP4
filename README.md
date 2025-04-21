@@ -1,2 +1,4 @@
-# LIFE4136-Rot2-GP4
-Group Project 
+# Measuring mRNA levels by RNA-Seq (Trypanosoma brucei & Homo Sapiens)
+## Contents
+Overview
+## Getting Started
