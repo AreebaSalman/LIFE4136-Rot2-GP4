@@ -51,5 +51,13 @@ Intsall the fastqc package in the python=3.10 environment created earlier.
   Prepare a script using [quast_Animals.sh/slurm_qcv2](#quast_Animals.sh/slurm_qcv2)
   <pre> sbatch quast_Animals.sh/slurm_qcv2 </pre>
   Several types of files will be generated. Copy those files to your computer and view them.
+### Trimming
+Trim-galore was the package used to trim the samples after viewing the quality of these.
+<pre> conda activate rotation2
+  conda install bioconda::trim-galore </pre>
+  Use [TG_animal.sh/vitrotrim_galore.sh](#TG_animal.sh/vitrotrim_galore.sh) to prepare the scripts according to the data provided.
+  <pre> sbatch TG_animal.sh/vitrotrim_galore.sh </pre>
+  
+
 
 
