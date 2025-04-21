@@ -19,7 +19,7 @@
 - [Read Count](#ReadCount)
 - [DESeq2](DESeq2)
 ### Reference index
-## Homo Sapiens
+## Homo Sapiens Analysis
 - [Indexixing](#Indexing)
 - [Alignment](#Alignment)
 - [DESeq2](#DESeq2)
