@@ -14,7 +14,7 @@
 - [DESeq2](DESeq2)
 - [Reference Index](#ReferenceIndex)
 ## Homo Sapiens Analysis
-- [Indexixing](#Indexing)
+- [Indexing](#Indexing)
 - [Alignment](#Alignment)
 - [DESeq2](#DESeq2)
 ## Acknowledgements
