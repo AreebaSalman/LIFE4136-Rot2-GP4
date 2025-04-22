@@ -69,7 +69,7 @@ Install the fastqc package in the python=3.10 environment created earlier.
 conda install bioconda::fastqc=0.11.9 </pre>
 Prepare a script using [quast_Animals.sh](#quast_Animals.sh)
 <pre> sbatch quast_Animals.sh </pre>
- An html and a zip file will be produced as a result of the script submitted. Copy the files from ADA back to your computer and view the quality check report in a browser. 
+An html and a zip file will be produced as a result of the script submitted. Copy the files from ADA back to your computer and view the quality check report in a browser. 
 ### Trimming
 Trim-galore was the package used to trim the samples after viewing the quality of these. Trimming was needed to ensure the data excludes those files which were not needed in order to make our data clean
 <pre> conda activate rotation2
