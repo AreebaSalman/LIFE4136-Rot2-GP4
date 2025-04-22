@@ -39,8 +39,8 @@ Follow the prompts during installation, and restart your terminal when done.
 <pre> git clone https://github.com/AreebaSalman/LIFE4136-Rot2-GP4.git
 cd LIFE4136-Rot2-GP4 </pre>
 ## Trypanosoma brucei analysis
-In Trypanosoma brucei, two samples were used, Animals and In-vitro. For both the samples, same tools were used for the analysis.
-<pre> conda create python=3.10 -n <rotation2> </pre>
+In Trypanosoma brucei, two samples were used, Animals and In-vitro. For both the samples, same tools were used for the analysis. Start your analysis by creating a conda environment.
+<pre> conda create python=3.10 -n rotation2 </pre>
 ### Quality Check
 Fastqc package was used to check the quality of the Animals and In-vitro samples. It provides a comprehensive suite of analyses to assess the quality of the raw data.
 Intsall the fastqc package in the python=3.10 environment created earlier.
