@@ -1,1 +1,17 @@
+# Create a conda environment and install all these packages in the environment.
+conda create python=3.10 -n <rotation2>
+conda activate rotation2
+conda install bioconda::fastqc
+conda install bioconda::trim-galore
+conda install bioconda::bowtie2
+conda install bioconda::htseq
+conda install bioconda::star
 
+# For DESeq2 analysis in R first install all the required packages,
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install(c("DESeq2", "pheatmap"))
+install.packages(c("ggplot2", "dplyr", "tidyr", "readr", "tibble", "stringr", "forcats"))
+
+After installing all these packages, please load all the libraries in your environment to be used for analysis.
