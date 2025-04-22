@@ -31,8 +31,7 @@ The expected outcomes of our analysis were,
 - Gene count tables.
 - Identification of differentially expressed genes between conditions for both organisms.
 ## Requirements & Installations
-All analyses were performed on the **Ada High-Performance Computing (HPC) cluster** using a Linux-based environment. It is recommended to run this pipeline on a Linux system or HPC environment with sufficient memory and CPU resources.
-Several different packages were used to complete this project. A Requirements.txt file also present in the repository contains downloading and installation steps. 
+All analyses were performed on the **Ada High-Performance Computing (HPC) cluster** using a Linux-based environment. It is recommended to run this pipeline on a Linux system or HPC environment with sufficient memory and CPU resources. Several different packages were used to complete this project. The Requirements.txt file in this repository contains a detailed list of packages and installation steps.
 ## Getting Started
 ### Install Conda
 To install Conda on Ubuntu, download the Miniconda installer and run the following commands:
