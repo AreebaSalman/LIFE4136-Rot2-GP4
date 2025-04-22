@@ -64,7 +64,7 @@ In Trypanosoma brucei, two samples were used, Animals and In-vitro. For both the
 <pre> conda create python=3.10 -n rotation2 </pre>
 ### Quality Check
 Fastqc package was used to check the quality of the Animals and In-vitro samples. It provides a comprehensive suite of analyses to assess the quality of the raw data.
-Intsall the fastqc package in the python=3.10 environment created earlier.
+Install the fastqc package in the python=3.10 environment created earlier.
 <pre> conda activate rotation2
 conda install bioconda::fastqc=0.11.9 </pre>
 Prepare a script using [quast_Animals.sh](#quast_Animals.sh)
