@@ -4,7 +4,7 @@
 - [Requirements & Installations](#Requirements&Installations)
 ## Getting Started
 - [Install Conda](#Installconda)
-- [Clone Github Repository](#CloneGithubRepository)
+- [Clone GitHub Repository](#CloneGitHubRepository)
 ## Data
 - [Input data](#Inputdata)
 - [Output data](Outputdata)
@@ -38,7 +38,7 @@ To install Conda on Ubuntu, download the Miniconda installer and run the followi
 <pre> wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh </pre>
 Follow the prompts during installation, and restart your terminal when done.
-### Clone Github repository
+### Clone GitHub repository
 <pre> git clone https://github.com/AreebaSalman/LIFE4136-Rot2-GP4.git
 cd LIFE4136-Rot2-GP4 </pre>
 ## Data
