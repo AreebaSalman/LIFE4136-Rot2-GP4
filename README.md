@@ -22,7 +22,11 @@
 - [References](#References)
 
 ## Overview
-LIFE4136 Rotation 2 Group 4 This repository contains all the scripts used by Group 4 in completion of the LIFE4136 Group Projects Module. All the scripts used for Tbrucei and Hsapiens are present in this repository. This project aims to measure the mRNA levels of Tbrucei and Hsapiens to check the gene expression levels using DESeq2 analysis. RNA-Seq allows for the precise quantification of mRNA abundance, allowing the identification of differentially expressed genes and their role in numerous biological processes. The following code is in order as it was used to measure mRNA levels to check for differentially expressed genes. The source files for Tbrucei were provided to us, while the files for Hsapiens were downloaded from [BioStudies](https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-4681). Trypanosoma brucei is a single-celled protozoan parasite of the blood that is transmitted by biting insect (tsetse) causing Human African trypanosomiasis (HAT) – sleeping sickness. Our group had to analyse samples for differential gene expression for Animals and In-vitro. Next, to understand eukaryotic transcription with splicing, Hsapien samples of adenocarcinoma and hepatocellular carcinoma were used. 
+LIFE4136 Rotation 2 Group 4 This repository contains all the scripts used by Group 4 in completion of the LIFE4136 Group Projects Module. All the scripts used for Tbrucei and Hsapiens are present in this repository. This project aims to measure the mRNA levels of Tbrucei and Hsapiens to check the gene expression levels using DESeq2 analysis. RNA-Seq allows for the precise quantification of mRNA abundance, allowing the identification of differentially expressed genes and their role in numerous biological processes. The following code is in order as it was used to measure mRNA levels to check for differentially expressed genes. The source files for Tbrucei were provided to us, while the files for Hsapiens were downloaded from [BioStudies](https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-4681). Trypanosoma brucei is a single-celled protozoan parasite of the blood that is transmitted by biting insect (tsetse) causing Human African trypanosomiasis (HAT) – sleeping sickness. Our group had to analyse samples for differential gene expression for Animals and In-vitro. Next, to understand eukaryotic transcription with splicing, Hsapien samples of adenocarcinoma and hepatocellular carcinoma were used.
+The expected outcomes of our analysis were, 
+- High-quality aligned RNA-Seq data.
+- Gene count tables.
+- Identification of differentially expressed genes between conditions for both organisms.
 ## Requirements & Installations
 Several different packages were used to complete this project. A Requirements.txt file can be found in the repository for downloading and installation purposes.
 ## Getting Started
@@ -67,16 +71,18 @@ Provided are example scripts to be used for the analysis [align_animal_trim.sh](
 <pre> sbatch align_animal_trim.sh </pre>
 gzipped .sam files will be generated as result of these scripts. .sam files are readable but to view them in IGV .bam files are required.
 ### IGV
-Download the IGV desktop version from [here](https://igv.org/doc/desktop/#DownloadPage/). It was used to view the distribution of mapped reads for one or more of the samples across Chromosome 1. To view the mapped files of Animals and In-vitro, gzipped .sam files had to be converted to .bam and .bam.bai files.
+Download the IGV desktop version from [here](https://igv.org/doc/desktop/#DownloadPage/). It was used to view the distribution of mapped reads for one or more of the samples across Chromosome 1. To view the mapped files of Animals and In-vitro, gzipped .sam files had to be converted to .bam and .bam.bai files using samtools
+<pre> conda activate rotation2
+conda install bioconda::samtools </pre>
 Find the IGV preparation script [IGV preparation](#IGVpreparation).
-<pre> IGV preparation </pre>
+<pre> sbatch IGV preparation </pre>
 .bam and .bam.bai files will be generated. Copy those files on to your computer and upload them with the reference genome .bam and .bam.bai files in IGV and view the results.
 ### Read count
 htseq was used to count the reads mapped to each gene in the genome for the purpose of identifying differentially expressed genes.
 <pre> conda activate rotation2
 conda install bioconda::htseq </pre>
-[htseq_animals.sh/htseq_vitro.sh](#htseq_animals.sh/htseq_vitro.sh) example scripts are provided to view and use them according to your convenience.
-<pre> sbatch htseq_animals.sh/htseq_vitro.sh </pre>
+[htseq_animals.sh](#htseq_animals.sh) example scripts are provided to view and use them according to your convenience.
+<pre> sbatch htseq_animals.sh </pre>
 As a result of submitting these scripts, count text files for all the samples will be generated. Bring these files back to your computer for DESeq2 analysis in R.
 ### DESeq2
 To identify differentially expressed genes in the genome, DESeq2 package was used in R. It is a valuable tool to study gene expression patterns and regulation. From the text files generated from htseq, create a Sample Table with the columns (sampleName,fileName, condition) to describe the dataset.
