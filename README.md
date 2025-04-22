@@ -68,7 +68,9 @@ Install the fastqc package in the python=3.10 environment created earlier.
 <pre> conda activate rotation2
 conda install bioconda::fastqc=0.11.9 </pre>
 Prepare a script using [quast_Animals.sh](#quast_Animals.sh)
-<pre> sbatch quast_Animals.sh </pre> > **Note:** The `sbatch` command is used to submit jobs to the SLURM scheduler on the Ada HPC cluster. If you're running this analysis on a different system, ensure that you have access to a SLURM-based HPC environment, or adapt the commands accordingly.
+<pre> sbatch quast_Animals.sh </pre> > 
+**Note:** The `sbatch` command is used to submit jobs to the SLURM scheduler on the Ada HPC cluster. If you're running this analysis on a different system, ensure that you have access to a SLURM-based HPC environment, or adapt the commands accordingly.
+
 An html and a zip file will be produced as a result of the script submitted. Copy the files from ADA back to your computer and view the quality check report in a browser. 
 ### Trimming
 Trim-galore was the package used to trim the samples after viewing the quality of these. Trimming was needed to ensure the data excludes those files which were not needed in order to make our data clean
