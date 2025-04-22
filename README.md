@@ -5,6 +5,9 @@
 ## Getting Started
 - [Install Conda](#Installconda)
 - [Clone Github Repository](#CloneGithubRepository)
+## Data
+- [Input data](#Inputdata)
+- [Output data](Outputdata)
 ## Trypanosoma brucei analysis
 - [Quality check](#Qualitycheck)
 - [Trimming](#Trimming)
@@ -39,6 +42,24 @@ Follow the prompts during installation, and restart your terminal when done.
 ### Clone Github repository
 <pre> git clone https://github.com/AreebaSalman/LIFE4136-Rot2-GP4.git
 cd LIFE4136-Rot2-GP4 </pre>
+## Data
+### Input data
+- **RNA-Seq FASTQ files**:
+   - *Trypanosoma brucei*: 2 samples (*Animals* and *In-vitro*).
+   - *Homo sapiens*: 2 samples (Adenocarcinoma vs Hepatocellular carcinoma) from [ArrayExpress E-MTAB-4681](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-4681/).
+- **Reference Genomes**:
+   - *T. brucei* v68 (FASTA + GFF3) from [TriTrypDB](https://tritrypdb.org).
+   - *H. sapiens* GRCh38 (FASTA + GTF) from [Ensembl](https://www.ensembl.org).
+### Output data
+- **html/zip files**: Quality check (for *T.brucei*)
+-  **fq/txt files**: Trimmed data for *T.brucei*
+- **BAM/SAM files**: Aligned reads for each sample.
+- **ReadsPerGene.out.tab**: Gene count outputs from STAR (for *H. sapiens*).
+- **HTSeq-count files**: Gene-level read counts for *T. brucei*.
+- **DESeq2 Results**:
+   - Differential expression tables.
+   - Normalized counts.
+   - Visualizations (e.g., heatmaps, MA plots).
 ## Trypanosoma brucei analysis
 In Trypanosoma brucei, two samples were used, Animals and In-vitro. For both the samples, same tools were used for the analysis. Start your analysis by creating a conda environment.
 <pre> conda create python=3.10 -n rotation2 </pre>
