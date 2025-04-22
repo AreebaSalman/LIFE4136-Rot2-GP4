@@ -45,21 +45,21 @@ In Trypanosoma brucei, two samples were used, Animals and In-vitro. For both the
 Fastqc package was used to check the quality of the Animals and In-vitro samples. It provides a comprehensive suite of analyses to assess the quality of the raw data.
 Intsall the fastqc package in the python=3.10 environment created earlier.
 <pre> conda activate rotation2
-conda install bioconda::fastqc </pre>
+conda install bioconda::fastqc=0.11.9 </pre>
 Prepare a script using [quast_Animals.sh](#quast_Animals.sh)
 <pre> sbatch quast_Animals.sh </pre>
  An html and a zip file will be produced as a result of the script submitted. Copy the files from ADA back to your computer and view the quality check report in a browser. 
 ### Trimming
 Trim-galore was the package used to trim the samples after viewing the quality of these. Trimming was needed to ensure the data excludes those files which were not needed in order to make our data clean
 <pre> conda activate rotation2
-conda install bioconda::trim-galore </pre>
+conda install bioconda::trim-galore=0.6.10 </pre>
 Use [TG_animal.sh](#TG_animal.sh) to prepare the scripts according to the data provided.
 <pre> sbatch TG_animal.sh </pre>
 A fastq and a text file will be genrerated. To view these files copy them to your computer and view them. Check the results of the trimmed files and decide whether more trimming is needed or the samples now are clean to e used for analysis.
 ### Indexing
 To use bowtie2 to align the reads to the reference genome, it is important to index the reference using bowtie build. 
 <pre> conda activate rotation2
-conda install bioconda::bowtie2 </pre>
+conda install bioconda::bowtie2=2.5.1 </pre>
 [indexing_reference.sh](#indexing_reference.sh) is the example script to build an index using bowtie build. 
 <pre> sbatch indexing_reference.sh </pre>
 bam and bam.bai files will be generated using the above script. These files are important for viewing in IGV for the analysis.
@@ -73,14 +73,14 @@ gzipped .sam files will be generated as result of these scripts. .sam files are 
 ### IGV
 Download the IGV desktop version from [here](https://igv.org/doc/desktop/#DownloadPage/). It was used to view the distribution of mapped reads for one or more of the samples across Chromosome 1. To view the mapped files of Animals and In-vitro, gzipped .sam files had to be converted to .bam and .bam.bai files using samtools
 <pre> conda activate rotation2
-conda install bioconda::samtools </pre>
+conda install bioconda::samtools=1.15 </pre>
 Find the IGV preparation script [IGV preparation](#IGVpreparation).
 <pre> sbatch IGV preparation </pre>
 .bam and .bam.bai files will be generated. Copy those files on to your computer and upload them with the reference genome .bam and .bam.bai files in IGV and view the results.
 ### Read count
 htseq was used to count the reads mapped to each gene in the genome for the purpose of identifying differentially expressed genes.
 <pre> conda activate rotation2
-conda install bioconda::htseq </pre>
+conda install bioconda::htseq=2.0.2 </pre>
 [htseq_animals.sh](#htseq_animals.sh) example scripts are provided to view and use them according to your convenience.
 <pre> sbatch htseq_animals.sh </pre>
 As a result of submitting these scripts, count text files for all the samples will be generated. Bring these files back to your computer for DESeq2 analysis in R.
@@ -97,7 +97,7 @@ For studying differentially expressed genes in Hsapiens, two samples were provid
 ### Indexing
 Reference genome assembly and its annotation was downloaded from www.ensembl.org. To align the sequence to the reference genome, the reference genome had to be indexed. A package called STAR was used to index the reference genome. 
 <pre> conda activate rotation2
-conda install bioconda::star </pre>
+conda install bioconda::star=2.7.10b </pre>
 Create the STAR index using [STAR_refindex.sh](#STAR_refindex.sh)
 <pre> sbatch STAR_refindex.sh </pre>
 After running STAR for genome indexing, several files such as Genome, SA, SAindex, and annotation-related files are generated in the specified genome directory.
